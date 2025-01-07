@@ -38,7 +38,7 @@ def create_cube(image, x, y):
     if velocity == [0, 0]:  # Assure que les vitesses ne sont jamais nulles
         velocity = [1, 1]
     hp = 10
-    return {'surface': image, 'rect': rect, 'velocity': velocity, 'hp': hp}
+    return {'surface': image, 'rect': rect, 'velocity': velocity, 'hp': hp, 'original_size': rect.size}
 
 while True:
     for event in pygame.event.get():
@@ -123,12 +123,18 @@ while True:
                     cube2['hp'] -= 1
                     cube1['velocity'][0] *= -1
                     cube2['velocity'][0] *= -1
+                    # Rétrécissement du cube2
+                    cube2['rect'].inflate_ip(-5, -5)
+                    cube2['surface'] = pygame.transform.scale(cube2['surface'], cube2['rect'].size)
 
                 # Dégâts sur le haut et le bas pour Cube2
                 if abs(cube2['rect'].top - cube1['rect'].bottom) < 10 or abs(cube2['rect'].bottom - cube1['rect'].top) < 10:
                     cube1['hp'] -= 1
                     cube1['velocity'][1] *= -1
                     cube2['velocity'][1] *= -1
+                    # Rétrécissement du cube1
+                    cube1['rect'].inflate_ip(-5, -5)
+                    cube1['surface'] = pygame.transform.scale(cube1['surface'], cube1['rect'].size)
 
     # Suppression des cubes avec 0 PV
     cubes1 = [cube for cube in cubes1 if cube['hp'] > 0]
