@@ -83,17 +83,9 @@ while True:
                 if abs(cube1['rect'].bottom - cube2['rect'].top) < 10 or abs(cube1['rect'].top - cube2['rect'].bottom) < 10:
                     cube1['velocity'][1] *= -1
                     cube2['velocity'][1] *= -1
-                # Évite le chevauchement
-                overlap_x = (cube1['rect'].width - abs(cube1['rect'].centerx - cube2['rect'].centerx)) / 2
-                overlap_y = (cube1['rect'].height - abs(cube1['rect'].centery - cube2['rect'].centery)) / 2
-                if overlap_x > 0:
-                    cube1['rect'].x += overlap_x * (1 if cube1['velocity'][0] > 0 else -1)
-                    cube2['rect'].x -= overlap_x * (1 if cube2['velocity'][0] > 0 else -1)
-                if overlap_y > 0:
-                    cube1['rect'].y += overlap_y * (1 if cube1['velocity'][1] > 0 else -1)
-                    cube2['rect'].y -= overlap_y * (1 if cube2['velocity'][1] > 0 else -1)
+             
 
-    # Gestion des collisions entre cubes similaires (Cube2)
+    # Gestion des collisions entre cubes similaires 
     for i, cube1 in enumerate(cubes2):
         for j, cube2 in enumerate(cubes2):
             if i != j and cube1['rect'].colliderect(cube2['rect']):
@@ -104,15 +96,7 @@ while True:
                 if abs(cube1['rect'].bottom - cube2['rect'].top) < 10 or abs(cube1['rect'].top - cube2['rect'].bottom) < 10:
                     cube1['velocity'][1] *= -1
                     cube2['velocity'][1] *= -1
-                # Évite le chevauchement
-                overlap_x = (cube1['rect'].width - abs(cube1['rect'].centerx - cube2['rect'].centerx)) / 2
-                overlap_y = (cube1['rect'].height - abs(cube1['rect'].centery - cube2['rect'].centery)) / 2
-                if overlap_x > 0:
-                    cube1['rect'].x += overlap_x * (1 if cube1['velocity'][0] > 0 else -1)
-                    cube2['rect'].x -= overlap_x * (1 if cube2['velocity'][0] > 0 else -1)
-                if overlap_y > 0:
-                    cube1['rect'].y += overlap_y * (1 if cube1['velocity'][1] > 0 else -1)
-                    cube2['rect'].y -= overlap_y * (1 if cube2['velocity'][1] > 0 else -1)
+               
 
     # Gestion des collisions entre cubes1 et cubes2
     for cube1 in cubes1:
